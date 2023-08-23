@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<title>Smart Home Panel</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="overlay.css">
+<link rel="stylesheet" href="slider.css">
+<link rel="stylesheet" href="switch.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <span class="w3-bar-item w3-right">Modelovanie centrálne riadeného SMART prostredia v procese tvorby univerzálneho používateľského rozhrania</span>
+</div>
+
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  
+  <hr>
+  <div class="w3-container">
+    <h5>Komunikácia so serverom</h5>
+    <hr>
+    <hr>
+  </div>
+  <div class="w3-bar-block">
+    <p style="font-family:verdana" id="response"></p>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-dashboard"></i>Panel Inteligentnej domácnosti</b></h5>
+  </header>
+
+  <div class="w3-row-padding w3-margin-bottom">
+    <a class="button" href="#popup1">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i><img src="img/home.png" width="48" height="48"></i></div>
+        <div class="w3-clear"></div>
+        <h4>Domácnosť</h4>
+        <!--<a class="button" href="#popup1">Show Overlay</a>-->
+      </div>
+    </div>
+  </a>
+  <a class="button" href="#popup2">
+    <div class="w3-quarter">
+      <div class="w3-container w3-blue w3-padding-16">
+        <div class="w3-left"><i><img src="img/pair.png" width="48" height="48"></i></div>
+        <div class="w3-clear"></div>
+        <h4>Párovanie</h4>
+      </div>
+    </div>
+  </a>
+  <a class="button" href="#popup3">
+    <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
+        <div class="w3-clear"></div>
+        <h4>Zariadenia</h4>
+      </div>
+    </div>
+  </a>
+  <a class="button" href="#popup4">
+    <div class="w3-quarter">
+      <div class="w3-container w3-orange w3-text-white w3-padding-16">
+        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+        <div class="w3-clear"></div>
+        <h4>Používatelia</h4>
+      </div>
+    </div>
+  </a>
+  </div>
+
+  <div class="w3-panel">
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-third">
+        <h5>Rýchly prístup</h5>
+        <table class="w3-table w3-striped w3-white">
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Požadovaná teplota</td>
+                <td>
+                    <div class="slidecontainer">
+                    <input type="range" min="15" max="30" value="22.5" class="mover" id="myRange"  oninput="ChangeTermostat(this, 'Termostat01', '2')" onchange="ChangeTermostat(this, 'Termostat01', '2')">
+                    <p><span id="demo"></span></p>
+                    </div>
+                </td> 
+            </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Mód termostatu</td>
+                <td>
+                    <select name="mode" id="mode" onchange="ChangeTermostat(this, 'Termostat01', '1')">
+                        <option value="Off">Vypnuté</option>
+                        <option value="AC">Klimatizácia</option>
+                        <option value="Heating">Ohrev</option>
+                        <option value="Automatic">Auto</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Televízia</td>
+                <td>
+                    <label for="ch">Kanál</label>
+                    <input type="number" id="ch" name="ch" min="1" max="10" onkeydown="ChangeChannelInput(this)">
+                    <select name="channel" id="channel" onchange="ChangeChannel(this)">
+                        <option value="default">Jednotka</option>
+                        <option value="AC">Dvojka</option>
+                        <option value="Heating">Trojka</option>
+                        <option value="Automatic">TV Markíza</option>
+                        <option value="Automatic">TV JOJ</option>
+                        <option value="Automatic">TV Doma</option>
+                        <option value="Automatic">TV Dajto</option>
+                        <option value="Automatic">Plus</option>
+                        <option value="Automatic">TV Wau</option>
+                        <option value="Automatic">TA3</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Zámok</td>
+                <td>
+                    <label class="switch">
+                    <input type="checkbox" onchange="ChangeValue(this, 'zamok', '1')";>
+                    <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Alarm</td>
+                <td>
+                    <label class="switch">
+                    <input type="checkbox" onchange="ChangeValue(this, 'Termostat01', '1')";>
+                    <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Osvetlenie chodba</td>
+                <td>
+                    <label class="switch">
+                    <input type="checkbox" onchange="ChangeValue(this, 'Termostat01', '1')";>
+                    <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Osvetlenie obývacia izba</td>
+                <td>
+                    <label class="switch">
+                    <input type="checkbox" onchange="ChangeValue(this, 'Termostat01', '1')";>
+                    <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Osvetlenie detská izba</td>
+                <td>
+                    <label class="switch">
+                    <input type="checkbox" onchange="ChangeValue(this, 'Termostat01', '1')";>
+                    <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Osvetlenie spálňa</td>
+                <td>
+                    <label class="switch">
+                    <input type="checkbox" onchange="ChangeValue(this, 'Termostat01', '1')";>
+                    <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Osvetlenie kúpeľňa</td>
+                <td>
+                    <label class="switch">
+                    <input type="checkbox" onchange="ChangeValue(this, 'Termostat01', '1')";>
+                    <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Osvetlenie kuchyňa</td>
+                <td>
+                    <label class="switch">
+                    <input type="checkbox" onchange="ChangeValue(this, 'Termostat01', '1')";> 
+                    <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Počítač</td>
+                <td>
+                    <label class="switch">
+                    <input type="checkbox" onchange="ChangeValue(this, 'Termostat01', '1')";>
+                    <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+        </table>
+
+      </div>
+      <div class="w3-twothird">
+        <h5>Diagnostika koncových zariadení</h5>
+        <table class="w3-table w3-striped w3-white">
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Požadovaná teplota</td>
+            <td><i id="termostat_temp">25</i></td> 
+            <!-- doplnit nacitanie dat-->
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Mód termostatu</td>
+            <td><i id="termostat_mode">25</i></td> 
+            <!-- doplnit nacitanie dat-->
+          </tr>
+            <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Teplota obývačka</td>
+                <td><i id="temp_living">24.5</i></td> 
+                <!-- doplnit nacitanie dat-->
+              </tr>
+              <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Teplota chodba</td>
+                <td><i>23</i></td> 
+                <!-- doplnit nacitanie dat-->
+              </tr>
+              <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Teplota von</td>
+                <td><i>29.8</i></td> 
+                <!-- doplnit nacitanie dat-->
+              </tr>
+              <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Zámok</td>
+                <td><i id="lock">Vypnutý</i></td> 
+                <!-- doplnit nacitanie dat-->
+              </tr>
+              <tr>
+                <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                <td>Alarm</td>
+                <td><i>Off</i></td> 
+                <!-- doplnit nacitanie dat-->
+              </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Chladnička</td>
+            <td><i>Zatvorená</i></td> 
+            <!-- doplnit nacitanie dat-->
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Okno #1</td>
+            <td><i>Zatvorené</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Okno #2</td>
+            <td><i>Zatvorené</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Okno #3</td>
+            <td><i>Zatvorené</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Okno #4</td>
+            <td><i>Otvorené</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Závesy</td>
+            <td><i>Otvorené</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Televízia</td>
+            <td><i id = 'tv'>kanál 10</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Počítač</td>
+            <td><i>Zapnutý</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Osvetlenie chodba</td>
+            <td><i>Zapnuté</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Osvetlenie obývacia izba</td>
+            <td><i>Zapnuté</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Osvetlenie detská izba</td>
+            <td><i>Zapnuté</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Osvetlenie spálňa</td>
+            <td><i>Vypnuté</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Osvetlenie kúpeľňa</td>
+            <td><i>Vypnuté</i></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+            <td>Osvetlenie kuchyňa</td>
+            <td><i>Vypnuté</i></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="popup1" class="overlay">
+    <div class="popup">
+      <h2>Domácnosť</h2>
+      <a class="close" href="#">×</a>
+      <div class="content">
+        vytvorenie domacnosti, prihlasenie sa k domacnosti a celkovo jej spravovanie je na tomto mieste.
+        <br>
+        Popis: 
+        <input type="text" id="home_desc" name="home_desc">
+        <br>
+        Názov: 
+        <input type="text" id="home_name" name="home_name">
+      </div>
+    </div>
+  </div>
+
+  <div id="popup2" class="overlay">
+    <div class="popup">
+      <h2>Párovanie</h2>
+      <a class="close" href="#">×</a>
+      <div class="content">
+        Zadas kod a sparujes nove zariadenie, kod ziskas z qr kodu nalepenom na zariadeni
+      <br>
+      <br>
+        Kód zariadenia:
+
+        <input type="text" id="register" name="register" onkeydown="RegisterDevice(this)">
+      </div>
+    </div>
+  </div>
+
+  <div id="popup3" class="overlay">
+    <div class="popup">
+      <h2>Zariadenia</h2>
+      <a class="close" href="#">×</a>
+      <div class="content">
+        sprava jednotlivych zariadeni, tu sa nam zobrazia vsetke existujuce zariadenia
+      </div>
+    </div>
+  </div>
+
+  <div id="popup4" class="overlay">
+    <div class="popup">
+      <h2>Používatelia</h2>
+      <a class="close" href="#">×</a>
+      <div class="content">
+        sprava pouzivatelskych uctov, zoznam pouzivatelov, zmeny prav 
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+    <h4>FOOTER</h4>
+    <p>Používateľské rozhranie na prezentáciu bakalárskej práce</a></p>
+  </footer>
+
+  <!-- End page content -->
+</div>
+
+<script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    document.getElementById("myRange").step = "0.5"
+    output.innerHTML = slider.value;
+    
+    slider.oninput = function() {
+      output.innerHTML = this.value;
+    }
+    </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+
+<script src="scripts.js"></script>
+
+</body>
+</html>
+
